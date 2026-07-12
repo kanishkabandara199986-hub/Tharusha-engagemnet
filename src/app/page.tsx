@@ -1,65 +1,103 @@
-import Image from "next/image";
+"use client";
+
+import { useState, useEffect, useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { OpeningScreen } from "@/components/sections/OpeningScreen";
+import { Hero } from "@/components/sections/Hero";
+import dynamic from "next/dynamic";
+
+// Dynamically import below-the-fold components to defer JS loading and reduce initial bundle size
+const Countdown = dynamic(() => import("@/components/sections/Countdown").then((mod) => mod.Countdown), { ssr: false });
+const Couple = dynamic(() => import("@/components/sections/Couple").then((mod) => mod.Couple));
+const EngagementDetails = dynamic(() => import("@/components/sections/EngagementDetails").then((mod) => mod.EngagementDetails));
+const EventSchedule = dynamic(() => import("@/components/sections/EventSchedule").then((mod) => mod.EventSchedule));
+const RSVP = dynamic(() => import("@/components/sections/RSVP").then((mod) => mod.RSVP));
+const VenueMap = dynamic(() => import("@/components/sections/VenueMap").then((mod) => mod.VenueMap), { ssr: false });
+const ThankYou = dynamic(() => import("@/components/sections/ThankYou").then((mod) => mod.ThankYou));
+import { FloatingNav } from "@/components/sections/FloatingNav";
+import { PetalParticles } from "@/components/ui/PetalParticles";
 
 export default function Home() {
+  const [isInvitationOpen, setIsInvitationOpen] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  // Parallax background logic
+  const { scrollY } = useScroll();
+  const backgroundY = useTransform(scrollY, [0, 4000], ["0%", "20%"]);
+
+  const handleOpenInvitation = () => {
+    setIsInvitationOpen(true);
+    if (audioRef.current) {
+      audioRef.current.volume = 0.3; // Soft volume
+      audioRef.current.play().catch(e => console.log("Audio play failed:", e));
+      setIsPlaying(true);
+    }
+  };
+
+  const toggleMusic = () => {
+    if (!audioRef.current) return;
+    if (isPlaying) {
+      audioRef.current.pause();
+    } else {
+      audioRef.current.play().catch(e => console.log("Audio play failed:", e));
+    }
+    setIsPlaying(!isPlaying);
+  };
+
+  useEffect(() => {
+    // Lock body scroll when opening screen is visible
+    if (!isInvitationOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+      // Ensure we are at the top when opening
+      window.scrollTo(0, 0);
+    }
+    
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [isInvitationOpen]);
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+    <main className="relative bg-transparent">
+      {/* Background Music - Update the src to your actual audio file path */}
+      <audio ref={audioRef} src="/audio/background-music.mp3" loop />
+
+      {/* Botanical Parallax Background */}
+      <motion.div 
+        className="fixed -left-[10vw] -right-[10vw] -top-[15vh] h-[130vh] -z-10 pointer-events-none opacity-80"
+        style={{ 
+          backgroundImage: "url('/botanical-bg.png')", 
+          backgroundSize: "cover", 
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          mixBlendMode: "multiply",
+          y: backgroundY
+        }} 
+      />
+
+      {/* Animated Petals globally across the site */}
+      <PetalParticles />
+
+      <OpeningScreen 
+        isOpen={isInvitationOpen} 
+        onOpen={handleOpenInvitation} 
+      />
+
+      {/* Main Content */}
+      <div className={`transition-opacity duration-1000 ${isInvitationOpen ? "opacity-100" : "opacity-0 h-screen overflow-hidden"}`}>
+        <Hero />
+        <Countdown />
+        <Couple />
+        <EngagementDetails />
+        <EventSchedule />
+        <RSVP />
+        <VenueMap />
+        <ThankYou />
+        <FloatingNav isPlaying={isPlaying} onToggleMusic={toggleMusic} />
+      </div>
+    </main>
   );
 }

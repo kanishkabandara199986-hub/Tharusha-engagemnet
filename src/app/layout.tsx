@@ -56,10 +56,10 @@ export default function RootLayout({
       lang="en"
       className={`${inter.variable} ${cormorantGaramond.variable} ${greatVibes.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col font-sans text-text relative bg-transparent">
-        {/* Base Background Color */}
-        <div className="fixed inset-0 -z-20 bg-background pointer-events-none" />
-        
+      <body 
+        className="min-h-full flex flex-col font-sans text-text relative bg-transparent"
+        suppressHydrationWarning
+      >
         {children}
       </body>
     </html>

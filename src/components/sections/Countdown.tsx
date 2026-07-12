@@ -50,7 +50,7 @@ export const Countdown = () => {
   ];
 
   return (
-    <Container className="bg-secondary/60 backdrop-blur-sm py-20">
+    <Container className="bg-transparent py-20">
       <div className="flex flex-wrap justify-center gap-8 md:gap-16">
         {timeBlocks.map((block, index) => (
           <motion.div

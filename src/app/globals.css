@@ -20,8 +20,23 @@
   --foreground: #2D2D2D;
 }
 
+@keyframes mesh-gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
 body {
-  background-color: var(--background);
+  background: linear-gradient(-45deg, #FAF8F5, #FFFFFF, #E6D4B5, #FAF8F5);
+  background-size: 400% 400%;
+  animation: mesh-gradient 15s ease infinite;
+  background-attachment: fixed;
   color: var(--foreground);
 }
 

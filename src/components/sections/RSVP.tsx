@@ -59,7 +59,7 @@ export const RSVP = () => {
                   </label>
                   <input
                     {...register("name", { required: "Name is required" })}
-                    className="w-full bg-secondary/60 backdrop-blur-sm border border-divider rounded-lg px-4 py-3 focus:outline-none focus:border-gold transition-colors"
+                    className="w-full bg-transparent border border-divider rounded-lg px-4 py-3 focus:outline-none focus:border-gold transition-colors"
                     placeholder="John Doe"
                   />
                   {errors.name && (
@@ -73,7 +73,7 @@ export const RSVP = () => {
                   </label>
                   <input
                     {...register("phone", { required: "Phone number is required" })}
-                    className="w-full bg-secondary/60 backdrop-blur-sm border border-divider rounded-lg px-4 py-3 focus:outline-none focus:border-gold transition-colors"
+                    className="w-full bg-transparent border border-divider rounded-lg px-4 py-3 focus:outline-none focus:border-gold transition-colors"
                     placeholder="+94 77 123 4567"
                   />
                   {errors.phone && (
@@ -88,7 +88,7 @@ export const RSVP = () => {
                     </label>
                     <select
                       {...register("guests", { required: "Please select number of guests" })}
-                      className="w-full bg-secondary/60 backdrop-blur-sm border border-divider rounded-lg px-4 py-3 focus:outline-none focus:border-gold transition-colors appearance-none"
+                      className="w-full bg-transparent border border-divider rounded-lg px-4 py-3 focus:outline-none focus:border-gold transition-colors appearance-none"
                     >
                       <option value="">Select...</option>
                       <option value="1">1 Person</option>
@@ -107,7 +107,7 @@ export const RSVP = () => {
                     </label>
                     <select
                       {...register("attending", { required: "Please confirm attendance" })}
-                      className="w-full bg-secondary/60 backdrop-blur-sm border border-divider rounded-lg px-4 py-3 focus:outline-none focus:border-gold transition-colors appearance-none"
+                      className="w-full bg-transparent border border-divider rounded-lg px-4 py-3 focus:outline-none focus:border-gold transition-colors appearance-none"
                     >
                       <option value="">Select...</option>
                       <option value="yes">Joyfully Accept</option>
@@ -126,7 +126,7 @@ export const RSVP = () => {
                   <textarea
                     {...register("message")}
                     rows={4}
-                    className="w-full bg-secondary/60 backdrop-blur-sm border border-divider rounded-lg px-4 py-3 focus:outline-none focus:border-gold transition-colors resize-none"
+                    className="w-full bg-transparent border border-divider rounded-lg px-4 py-3 focus:outline-none focus:border-gold transition-colors resize-none"
                     placeholder="Leave a message for the couple..."
                   />
                 </div>

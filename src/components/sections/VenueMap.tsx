@@ -7,7 +7,7 @@ import { Button } from "../ui/Button";
 
 export const VenueMap = () => {
   return (
-    <Container id="venue" className="bg-soft-cream/60 backdrop-blur-sm !py-0 !px-0 max-w-none relative h-[600px] md:h-[800px]">
+    <Container id="venue" className="bg-transparent !py-0 !px-0 max-w-none relative h-[600px] md:h-[800px]">
       <iframe
         src="https://maps.google.com/maps?q=Hotel%20Senuri%20Grand%20Castello,%20Diulapitiya,%20Sri%20Lanka&t=&z=15&ie=UTF8&iwloc=&output=embed"
         width="100%"

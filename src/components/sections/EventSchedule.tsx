@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 
 export const EventSchedule = () => {
   return (
-    <Container id="schedule" className="bg-secondary/60 backdrop-blur-sm">
+    <Container id="schedule" className="bg-transparent">
       <SectionTitle title="Event Schedule" subtitle="Timeline" />
 
       <div className="max-w-xl mx-auto relative mt-16">

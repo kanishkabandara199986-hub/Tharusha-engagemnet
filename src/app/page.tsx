@@ -13,7 +13,6 @@ const Countdown = dynamic(() => import("@/components/sections/Countdown").then((
 const Couple = dynamic(() => import("@/components/sections/Couple").then((mod) => mod.Couple));
 const EngagementDetails = dynamic(() => import("@/components/sections/EngagementDetails").then((mod) => mod.EngagementDetails));
 const EventSchedule = dynamic(() => import("@/components/sections/EventSchedule").then((mod) => mod.EventSchedule));
-const RSVP = dynamic(() => import("@/components/sections/RSVP").then((mod) => mod.RSVP));
 const VenueMap = dynamic(() => import("@/components/sections/VenueMap").then((mod) => mod.VenueMap), { ssr: false });
 const ThankYou = dynamic(() => import("@/components/sections/ThankYou").then((mod) => mod.ThankYou));
 
@@ -78,7 +77,6 @@ export default function Home() {
         <Couple />
         <EngagementDetails />
         <EventSchedule />
-        <RSVP />
         <VenueMap />
         <ThankYou />
         <FloatingNav isPlaying={isPlaying} onToggleMusic={toggleMusic} />

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Heart, Calendar, Clock, MapPin, Mail, Music, Music4 } from "lucide-react";
+import { Heart, Calendar, Clock, MapPin, Music, Music4 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface FloatingNavProps {
@@ -20,7 +20,7 @@ export const FloatingNav = ({ isPlaying, onToggleMusic }: FloatingNavProps) => {
       setIsVisible(window.scrollY > window.innerHeight * 0.5);
 
       // Determine active section based on scroll position
-      const sections = ["couple", "details", "schedule", "venue", "rsvp"];
+      const sections = ["couple", "details", "schedule", "venue"];
       let current = "";
 
       for (const section of sections) {
@@ -53,17 +53,16 @@ export const FloatingNav = ({ isPlaying, onToggleMusic }: FloatingNavProps) => {
     { id: "details", icon: Calendar },
     { id: "schedule", icon: Clock },
     { id: "venue", icon: MapPin },
-    { id: "rsvp", icon: Mail },
   ];
 
   return (
     <AnimatePresence>
       {isVisible && (
         <motion.div
-          initial={{ opacity: 0, y: 50, x: "-50%" }}
-          animate={{ opacity: 1, y: 0, x: "-50%" }}
-          exit={{ opacity: 0, y: 50, x: "-50%" }}
-          className="fixed bottom-8 left-1/2 z-40 bg-white/80 backdrop-blur-md/80 backdrop-blur-md rounded-full shadow-lg border border-divider px-6 py-3 flex items-center gap-6"
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 50 }}
+          className="fixed bottom-0 left-0 w-full z-40 bg-gradient-to-r from-[#e3c78b] via-[#f8ebd0] to-[#e3c78b] shadow-[0_-4px_20px_rgba(0,0,0,0.1)] border-t border-[#cfaa68]/40 px-6 py-4 flex items-center justify-center gap-8 md:gap-12"
         >
           {navItems.map((item) => {
             const Icon = item.icon;
@@ -73,26 +72,26 @@ export const FloatingNav = ({ isPlaying, onToggleMusic }: FloatingNavProps) => {
                 key={item.id}
                 onClick={() => scrollTo(item.id)}
                 className={cn(
-                  "transition-all duration-300 hover:text-gold hover:scale-110",
-                  isActive ? "text-gold scale-110" : "text-text-light"
+                  "transition-all duration-300 hover:scale-110",
+                  isActive ? "text-[#92753a] scale-110" : "text-[#b59556]"
                 )}
               >
-                <Icon size={20} strokeWidth={isActive ? 2.5 : 2} />
+                <Icon size={24} strokeWidth={isActive ? 2.5 : 2} />
               </button>
             );
           })}
           
           {onToggleMusic && (
             <>
-              <div className="w-px h-6 bg-divider mx-2" />
+              <div className="w-px h-8 bg-[#cfaa68]/50 mx-2" />
               <button
                 onClick={onToggleMusic}
                 className={cn(
                   "transition-all duration-300 hover:scale-110",
-                  isPlaying ? "text-gold" : "text-text-light opacity-50"
+                  isPlaying ? "text-[#92753a]" : "text-[#b59556]"
                 )}
               >
-                {isPlaying ? <Music size={20} strokeWidth={2.5} /> : <Music4 size={20} strokeWidth={2} />}
+                {isPlaying ? <Music size={24} strokeWidth={2.5} /> : <Music4 size={24} strokeWidth={2} />}
               </button>
             </>
           )}

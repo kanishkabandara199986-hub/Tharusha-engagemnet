@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { engagementData } from "@/data/engagement";
 import { Container } from "../ui/Container";
 
@@ -18,8 +19,18 @@ export const Hero = () => {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 1, delay: 0.2 }}
-        className="text-center z-10"
+        className="text-center z-10 flex flex-col items-center"
       >
+        <div className="relative w-48 h-64 md:w-56 md:h-72 lg:w-64 lg:h-80 mb-10 rounded-t-full rounded-b-2xl overflow-hidden shadow-2xl ring-4 ring-white/50 ring-offset-4 ring-offset-transparent">
+          <Image
+            src="/couple.jpg"
+            alt={`${engagementData.couple.bride} & ${engagementData.couple.groom}`}
+            fill
+            className="object-cover"
+            priority
+          />
+        </div>
+
         <p className="font-sans text-gold tracking-[0.3em] uppercase text-sm mb-6">
           {engagementData.event.title}
         </p>
